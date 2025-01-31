@@ -13,7 +13,7 @@ import praktikum.pages.WhoIsTheScooterForPage;
 
 @RunWith(Parameterized.class)
 
-public class checkOrderPlacement {
+public class orderPlacementTest {
     @Rule
     public DriverRule factory = new DriverRule();
     private final String placeOfOrderButton;
@@ -26,7 +26,7 @@ public class checkOrderPlacement {
     private final String rentTime;
 
 
-    public checkOrderPlacement(String placeOfOrderButton,String name, String surname, String address, int metroStation, String phoneNumber, String whenDelivery, String rentTime) {
+    public orderPlacementTest(String placeOfOrderButton, String name, String surname, String address, int metroStation, String phoneNumber, String whenDelivery, String rentTime) {
         this.placeOfOrderButton = placeOfOrderButton;
         this.name = name;
         this.surname = surname;
@@ -51,7 +51,7 @@ public class checkOrderPlacement {
 
 
     @Test
-    public void checkOrder() throws InterruptedException {
+    public void checkOrderPlacement() throws InterruptedException {
         WebDriverManager.chromedriver().setup(); // Настройка WebDriverManager
         WebDriver driver = factory.getDriver();
         driver.get(EnvConfig.BASE_URL);

@@ -19,6 +19,10 @@ public class MainPage {
     private static final By orderHeaderButton = By.xpath(".//div[contains(@class, 'Header_Nav')]/button");
     // Локатор кнопки в центре сайта
     private static final By orderMiddleButton = By.xpath(".//div[contains(@class,'Home_FinishButton')]/button");
+    // Локатор вопроса FAQ
+    private static final String questionFAQ = "accordion__heading-";
+    // Локатор описания вопроса FAQ
+    private static final String descriptionFAQ = "accordion__panel-";
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
@@ -30,30 +34,35 @@ public class MainPage {
     }
 
     // Метод для получения локатора вопроса
-    public String getQuestionLocator(int index) {
-        return "accordion__heading-" + index;
+    public By getQuestionLocator(int index) {
+        return By.id(questionFAQ + index);
     }
 
     // Метод для получения локатора описания
-    public String getDescriptionLocator(int index) {
-        return "accordion__panel-" + index;
+    public By getDescriptionLocator(int index) {
+        return By.id(descriptionFAQ + index);
     }
 
-    // Метод для скролла до элемента и клика по нему
+    // Метод для скролла до элемента
     public void scrollToElement(By locator) {
         WebElement targetElement = driver.findElement(locator);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", targetElement);
     }
 
-    // Метод для ожидания появления описания вопросов FAQ
-    public void waitForLoadFAQDescription(By descriptionLocator) {
-        new WebDriverWait(driver, Duration.ofSeconds(EnvConfig.DELAY_TIME))
-                .until(ExpectedConditions.visibilityOfElementLocated(descriptionLocator));
+    // Клик по вопросу FAQ
+    public void clickFAQQuestion(int index) {
+        driver.findElement(getQuestionLocator(index)).click();
     }
 
-    // Метод клика по полю с FAQ вопросом
-    public void clickFAQQuestion(By locator) {
-        driver.findElement(locator).click();
+    // Метод для ожидания появления описания вопросов FAQ
+    public void waitForLoadFAQDescription(int index) {
+        new WebDriverWait(driver, Duration.ofSeconds(EnvConfig.DELAY_TIME))
+                .until(ExpectedConditions.visibilityOfElementLocated(getDescriptionLocator(index)));
+    }
+
+    // Получение текста описания FAQ
+    public String getFAQDescriptionText(int index) {
+        return driver.findElement(getDescriptionLocator(index)).getText();
     }
 
     // Метод клика по кнопке заказать в шапке

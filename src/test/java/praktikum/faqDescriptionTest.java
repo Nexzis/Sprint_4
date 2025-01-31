@@ -5,7 +5,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import praktikum.pages.MainPage;
 
@@ -13,14 +12,14 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 
-public class checkFAQDescription {
+public class faqDescriptionTest {
     @Rule
     public DriverRule factory = new DriverRule();
 
     private final int index;
     private final String expectedText;
 
-    public checkFAQDescription(int index, String expectedText) {
+    public faqDescriptionTest(int index, String expectedText) {
         this.index = index;
         this.expectedText = expectedText;
     }
@@ -42,7 +41,7 @@ public class checkFAQDescription {
 
 
     @Test
-    public void testFAQ() {
+    public void checkFAQDescription() {
         WebDriverManager.chromedriver().setup(); // Настройка WebDriverManager
         WebDriver driver = factory.getDriver();
         driver.get(EnvConfig.BASE_URL);
@@ -51,19 +50,15 @@ public class checkFAQDescription {
         // скроем куки
         mainPage.confirmCookie();
 
-        // Получение локаторов вопроса и описания
-        By questionLocator = By.id(mainPage.getQuestionLocator(index));
-        By descriptionLocator = By.id(mainPage.getDescriptionLocator(index));
-
         // Скролл до элемента и клик по нему
-        mainPage.scrollToElement(questionLocator);
-        mainPage.clickFAQQuestion(questionLocator);
+        mainPage.scrollToElement(mainPage.getQuestionLocator(index));
+        mainPage.clickFAQQuestion(index);
 
         // Ожидание загрузки текста ответа
-        mainPage.waitForLoadFAQDescription(descriptionLocator);
+        mainPage.waitForLoadFAQDescription(index);
 
         // Проверяем текст
-        String actualText = driver.findElement(descriptionLocator).getText();
+        String actualText =  mainPage.getFAQDescriptionText(index);
         assertEquals("Текст не соответствует ожидаемому " + expectedText, expectedText, actualText);
     }
 }
