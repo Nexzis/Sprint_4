@@ -8,21 +8,21 @@ import praktikum.EnvConfig;
 
 import java.time.Duration;
 
-public class AboutRent {
+public class AboutRentPage {
     private final WebDriver driver;
 
-    public AboutRent(WebDriver driver) {
-        this.driver = driver;
-    }
-
     // Локатор комбобокса "когда привезти самокат"
-    static By whenDeliveryCombobox = By.xpath(".//input[contains(@placeholder, '* Когда привезти самокат')]");
+    private static final By whenDeliveryCombobox = By.xpath(".//input[contains(@placeholder, '* Когда привезти самокат')]");
 
     // Локатор комбобокса "срок аренды"
-    static By rentTimeCombobox = By.xpath(".//*[contains(@class, 'Dropdown-root')]"); //By.className("Dropdown-root Order_FilledDate__1pb8n");
+    private static final By rentTimeCombobox = By.xpath(".//*[contains(@class, 'Dropdown-root')]"); //By.className("Dropdown-root Order_FilledDate__1pb8n");
 
     // Локатор кнопки заказать
-    static By orderButton = By.xpath(".//*[contains(@class, 'Button_Middle__1CSJM') and text() = 'Заказать']"); //By.className("Dropdown-root Order_FilledDate__1pb8n");
+    private static final By orderButton = By.xpath(".//*[contains(@class, 'Button_Middle__1CSJM') and text() = 'Заказать']"); //By.className("Dropdown-root Order_FilledDate__1pb8n");
+
+    public AboutRentPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     // Метод для установки даты доставки
     public void setWhenDelivery(String deliveryDate) {

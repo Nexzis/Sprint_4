@@ -13,33 +13,36 @@ import java.time.Duration;
 public class MainPage {
     private final WebDriver driver;
 
+    // Локатор для кнопки принять куки
+    private static final By cookieButton = By.id("rcc-confirm-button");
+    // Локатор кнопки в хэдере
+    private static final By orderHeaderButton = By.xpath(".//div[contains(@class, 'Header_Nav')]/button");
+    // Локатор кнопки в центре сайта
+    private static final By orderMiddleButton = By.xpath(".//div[contains(@class,'Home_FinishButton')]/button");
+
     public MainPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    // Локатор для кнопки принять куки
-    static By cookieButton = By.id("rcc-confirm-button");
-
-    //Метод которым подтверждаем куки
+    //Метод, которым подтверждаем куки
     public void confirmCookie() {
         driver.findElement(cookieButton).click();
     }
 
     // Метод для получения локатора вопроса
-    public By getQuestionLocator(int index) {
-        return By.id("accordion__heading-" + index);
+    public String getQuestionLocator(int index) {
+        return "accordion__heading-" + index;
     }
 
     // Метод для получения локатора описания
-    public By getDescriptionLocator(int index) {
-        return By.id("accordion__panel-" + index);
+    public String getDescriptionLocator(int index) {
+        return "accordion__panel-" + index;
     }
 
     // Метод для скролла до элемента и клика по нему
-    public void scrollToElementAndClick(By locator) {
+    public void scrollToElement(By locator) {
         WebElement targetElement = driver.findElement(locator);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", targetElement);
-        targetElement.click();
     }
 
     // Метод для ожидания появления описания вопросов FAQ
@@ -48,30 +51,28 @@ public class MainPage {
                 .until(ExpectedConditions.visibilityOfElementLocated(descriptionLocator));
     }
 
-    // Локатор кнопки в хэдере
-    static By orderHeaderButton = By.xpath(".//div[@class = 'Header_Nav__AGCXC']/button");
-
-    // Метод клика по кнопке заказать в шапке
-    public By clickOrderHeaderButton() {
-        driver.findElement(orderHeaderButton).click();
-        return orderHeaderButton;
+    // Метод клика по полю с FAQ вопросом
+    public void clickFAQQuestion(By locator) {
+        driver.findElement(locator).click();
     }
 
-    // Локатор кнопки в хэдере
-    static By orderMiddleButton = By.className("Button_Middle__1CSJM");
+    // Метод клика по кнопке заказать в шапке
+    public void clickOrderHeaderButton() {
+        driver.findElement(orderHeaderButton).click();
+    }
 
     // Метод клика по кнопке заказать в середине
-    public By clickOrderMiddleButton() {
-        scrollToElementAndClick(orderMiddleButton);
-        return orderMiddleButton;
+    public void clickOrderMiddleButton() {
+        driver.findElement(orderMiddleButton).click();
     }
 
     // Метод для получения типа теста (по клику в хэдэре или в середине страницы)
-    public Object getOrderButtonAndClick(String place) {
+    public void getOrderButtonAndClick(String place) {
         if (place == "middle") {
-            return clickOrderMiddleButton();
+            scrollToElement(orderMiddleButton);
+            clickOrderMiddleButton();
         } else {
-            return clickOrderHeaderButton();
+            clickOrderHeaderButton();
         }
     }
 

@@ -52,11 +52,12 @@ public class checkFAQDescription {
         mainPage.confirmCookie();
 
         // Получение локаторов вопроса и описания
-        By questionLocator = mainPage.getQuestionLocator(index);
-        By descriptionLocator = mainPage.getDescriptionLocator(index);
+        By questionLocator = By.id(mainPage.getQuestionLocator(index));
+        By descriptionLocator = By.id(mainPage.getDescriptionLocator(index));
 
         // Скролл до элемента и клик по нему
-        mainPage.scrollToElementAndClick(questionLocator);
+        mainPage.scrollToElement(questionLocator);
+        mainPage.clickFAQQuestion(questionLocator);
 
         // Ожидание загрузки текста ответа
         mainPage.waitForLoadFAQDescription(descriptionLocator);

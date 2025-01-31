@@ -8,30 +8,30 @@ import praktikum.EnvConfig;
 
 import java.time.Duration;
 
-public class WhoIsTheScooterFor {
+public class WhoIsTheScooterForPage {
     private final WebDriver driver;
-
-    public WhoIsTheScooterFor(WebDriver driver) {
-        this.driver = driver;
-    }
-
     // Локатор кнопки Далее
-    static By nextButton = By.className("Button_Middle__1CSJM");
+    private static final By nextButton = By.className("Button_Middle__1CSJM");
 
     // Локатор поля с именем
-    static By name = By.xpath(".//input[contains(@placeholder, '* Имя')]");
+    private static final By name = By.xpath(".//input[contains(@placeholder, '* Имя')]");
 
     // Локатор поля с фамилией
-    static By surname = By.xpath(".//input[contains(@placeholder, '* Фамилия')]");
+    private static final By surname = By.xpath(".//input[contains(@placeholder, '* Фамилия')]");
 
     // Локатор поля с адресом
-    static By address = By.xpath(".//input[contains(@placeholder, '* Адрес: куда привезти заказ')]");
+    private static final By address = By.xpath(".//input[contains(@placeholder, '* Адрес: куда привезти заказ')]");
 
     // Локатор поля с комбобоксом станций метро
-    static By metroCombobox = By.className("select-search__input");
+    private static final By metroCombobox = By.className("select-search__input");
 
     // Локатор поля с номером телефона
-    static By phoneNumber = By.xpath(".//input[contains(@placeholder, '* Телефон: на него позвонит курьер')]");
+    private static final By phoneNumber = By.xpath(".//input[contains(@placeholder, '* Телефон: на него позвонит курьер')]");
+
+
+    public WhoIsTheScooterForPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     // Метод заполнения имени
     public void setName(String name) {

@@ -6,10 +6,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import praktikum.pages.AboutRent;
+import praktikum.pages.AboutRentPage;
 import praktikum.pages.MainPage;
-import praktikum.pages.OrderModal;
-import praktikum.pages.WhoIsTheScooterFor;
+import praktikum.pages.OrderModalPage;
+import praktikum.pages.WhoIsTheScooterForPage;
 
 @RunWith(Parameterized.class)
 
@@ -61,28 +61,28 @@ public class checkOrderPlacement {
         mainPage.confirmCookie();
         // Получим указание, по какой кнопке сделаем тест и кликнем на неё
         mainPage.getOrderButtonAndClick(placeOfOrderButton);
-        WhoIsTheScooterFor whoIsTheScooterFor = new WhoIsTheScooterFor(driver);
+        WhoIsTheScooterForPage whoIsTheScooterForPage = new WhoIsTheScooterForPage(driver);
         // заполним поля имя, фамилия, адрес, станция метро, номер телефона
-        whoIsTheScooterFor.setName(name);
-        whoIsTheScooterFor.setSurname(surname);
-        whoIsTheScooterFor.setAddress(address);
-        whoIsTheScooterFor.setMetroStation(metroStation);
-        whoIsTheScooterFor.setPhoneNumber(phoneNumber);
+        whoIsTheScooterForPage.setName(name);
+        whoIsTheScooterForPage.setSurname(surname);
+        whoIsTheScooterForPage.setAddress(address);
+        whoIsTheScooterForPage.setMetroStation(metroStation);
+        whoIsTheScooterForPage.setPhoneNumber(phoneNumber);
         // кликнем далее
-        whoIsTheScooterFor.clickNextButton();
+        whoIsTheScooterForPage.clickNextButton();
 
-        AboutRent aboutRent = new AboutRent(driver);
+        AboutRentPage aboutRentPage = new AboutRentPage(driver);
         // заполним обязательные поля для заказа
         // когда доставить, время аренды
-        aboutRent.setWhenDelivery(whenDelivery);
-        aboutRent.setRentTime(rentTime);
+        aboutRentPage.setWhenDelivery(whenDelivery);
+        aboutRentPage.setRentTime(rentTime);
         // кликнем заказать
-        aboutRent.clickOrderButton();
+        aboutRentPage.clickOrderButton();
 
-        OrderModal orderModal = new OrderModal(driver);
+        OrderModalPage orderModalPage = new OrderModalPage(driver);
         // кликнем подтвердить заказ
-        orderModal.confirmOrder();
+        orderModalPage.confirmOrder();
         // проверим что заказ появился
-        orderModal.checkOrderConfirmed();
+        orderModalPage.checkOrderConfirmed();
     }
 }
